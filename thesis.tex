@@ -39,11 +39,19 @@
 % Graphics: different for pdflatex or dvi output, choose one
 %%\usepackage[dvips]{graphicx}
 %%\usepackage[pdftex]{graphicx}
-\usepackage{graphicx}
+\usepackage{graphicx, array, wrapfig, subcaption, setspace, booktabs, tabularx}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[inkscapeformat=png]{svg}
+\usepackage{pdfpages}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
 
 \usepackage{epstopdf}
 \usepackage{rotating}
-\usepackage{subfigure}
 
 % Make captions distinguishable
 \usepackage[textfont=bf]{caption}
@@ -54,23 +62,23 @@
 % for url's use "\url{http://www.google.com/}"
 \usepackage{url}
 \usepackage[plainpages=false]{hyperref} 
+% \usepackage[plainpages=false, colorlinks=true, allcolors=black]{hyperref} 
 
 % Information that will be filled in at various points in the report
-\newcommand{\reportTitle}{WRITE YOUR THESIS TITLE HERE}
-\newcommand{\reportAuthor}{WRITE YOUR NAME AND SURNAME HERE} % Please put your full and official name here: no abbreviations (and to Dutch students: geen roepnamen)
-\newcommand{\studentNumber}{WRITE YOUR TU DELFT STUDENT NUMBER HERE}
-\newcommand{\reportEmailTUD}{REPORT-YOUR-TU-DELFT-EMAIL-FROM-STUDENT-TUDELFT-NL@student.tudelft.nl}
-\newcommand{\reportEmailNonTUD}{REPORT-YOUR-NON-TU-DELFT-EMAIL@some.other.non.tudelft.nl.domain.com}
+\newcommand{\reportTitle}{CardioSync - Heartbeat-Based BLE Synchronization for Batteryless IoT Devices}
+\newcommand{\reportAuthor}{Arunjunai Rajan Senthil Kumar} % Please put your full and official name here: no abbreviations (and to Dutch students: geen roepnamen)
+\newcommand{\studentNumber}{5515726}
+\newcommand{\reportEmailTUD}{a.r.senthilkumar@student.tudelft.nl}
+\newcommand{\reportEmailNonTUD}{arunjunai.gowtham@gmail.com}
 \newcommand{\reportUrlEmailTUD}{\href{mailto:\reportEmailTUD}{\reportEmailTUD}}
 \newcommand{\reportUrlEmailNonTUD}{\href{mailto:\reportEmailNonTUD}{\reportEmailNonTUD}}
-\newcommand{\reportMSC}{PUT TU DELFT PROGRAM THAT YOU FOLLOWED HERE} % Examples are {Embedded Systems} {Computer Engineering} {Computer Science} or {Electrical Engineering}
+\newcommand{\reportMSC}{Embedded Systems} % Examples are {Embedded Systems} {Computer Engineering} {Computer Science} or {Electrical Engineering}
 \newcommand{\reportDate}{PUT DATE OF PROVIDING THESIS TO GRADUATION COMMITTEE HERE}
-\newcommand{\presentationDate}{PUT DATE OF YOUR PRESENTATION HERE}
+\newcommand{\presentationDate}{30th August 2023}
 \newcommand{\graduationCommittee}{
-PUT THE NAME AND SURNAME OF GRADUATION COMMITTEE MEMBER 1 HERE & Delft University of Technology \\
-PUT THE NAME AND SURNAME OF GRADUATION COMMITTEE MEMBER 2 HERE & Delft University of Technology \\
-% ...
-PUT THE NAME AND SURNAME OF GRADUATION COMMITTEE MEMBER X HERE & Delft University of Technology \\
+Dr. Przemysław Pawełczak& Delft University of Technology \\
+Dr. Nergis Tömen & Delft University of Technology \\
+Dr. Jasper De Winkel & Delft University of Technology \\
 }
 
 % Provide full name and surname (no abbreviations), so "Koen Langendoen" not "K. Langendoen"
@@ -140,7 +148,7 @@ PUT THE NAME AND SURNAME OF GRADUATION COMMITTEE MEMBER X HERE & Delft Universit
 \cleardoublepage
 
 % (Optional) Include quotation: page v (uncomment if needed)
-\input{chapters/quotation}
+% \input{chapters/quotation}
 
 % Empty page: page vi
 \cleardoublepage
@@ -163,20 +171,21 @@ PUT THE NAME AND SURNAME OF GRADUATION COMMITTEE MEMBER X HERE & Delft Universit
 \include{introduction}
 
 % Create chapters
-\input{chapters/chapter_1}
-%\input{chapters/chapter_2}
-% ...
-%\nput{chapters/chapter_X}
+\input{chapters/Introduction/introduction}
+\input{chapters/Literature/literature}
+\input{chapters/Architecture/architecture}
+\input{chapters/Implementation/implementation}
+\input{chapters/Results/results}
 
 % Create conclusions
-\input{chapters/conclusions}
+\input{chapters/Conclusion/conclusions}
 
 % Create future work
-\input{chapters/futurework}
+\input{chapters/Future Work/futurework}
 
 % Create bibliography
 \bibliographystyle{plain} % Please do not change the style of bibliography (yes, it should be `plain`)
-\bibliography{../bib/MyMScTUDESThesisBibFile} % remove "../" before "bib" if you compile directly in Overleaf or in your favourite local LaTeX distribution
+\bibliography{bib/MyMScTUDESThesisBibFile} % remove "../" before "bib" if you compile directly in Overleaf or in your favourite local LaTeX distribution
 
 % Create appendix
 \appendix

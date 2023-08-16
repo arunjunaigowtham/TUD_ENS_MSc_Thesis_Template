@@ -1,0 +1,32 @@
+\chapter{Introduction}
+\label{chp:introduction}
+
+In today's interconnected world, the advancement in Internet of Things (IoT) devices is reshaping the way we interact with technology. These devices have become indispensable tools, enabling smart homes, industrial automation, healthcare monitoring, and more. As the demand for IoT devices continues to rise, so does the need for sustainable power solutions to ensure their seamless operation. About 78 million batteries powering IoT devices will be dumped globally every day by 2025 if nothing is done to improve their lifespan. This dire statistic comes from EnABLES, an EU-funded project that’s urging researchers and technologists to take action to ensure that batteries outlive the devices they power.
+ 
+\noindent Batteryless IoT devices have emerged as a promising solution to address the challenges posed by finite battery life. These devices tap into ambient energy sources or energy harvesting techniques to power their operations, offering a sustainable and maintenance-free approach. This paradigm shift holds the potential to revolutionise various domains, ranging from healthcare to environmental monitoring, by enabling devices to function indefinitely without battery replacement.
+
+\noindent Wireless sensor networks, a cornerstone of IoT infrastructure, stand to gain immensely from the advent of batteryless IoT devices. These networks, composed of interconnected sensors, offer unparalleled data collection and monitoring capabilities. However, the reliance on traditional battery-powered sensors often limits their deployment due to the need for frequent maintenance and replacement. The integration of batteryless IoT devices into wireless sensor networks presents a game-changing opportunity, promising extended operational lifetimes and reduced maintenance overhead.
+
+\noindent Within this landscape, the FreeBie platform, a battery-less BLE that works, has emerged as a pioneering solution. FreeBie is the first battery-free active wireless system that sustains bi-directional communication on intermittently harvested energy. FreeBie uses at least 9.5 times less power than a cutting-edge BLE device during periods of device inactivity, demonstrating the strength of its architecture. By offering BLE connectivity without continuous battery support, FreeBie opens doors to novel applications and possibilities for batteryless IoT devices.
+
+\section{Problem Statement}
+Despite the immense potential it holds, FreeBie is not without limitations. A significant constraint is that while the end device is intermittently powered and battery-free, the BLE hosts to which FreeBie connects necessitate continuous power. This constraint prompts the development of intermittently-powered hosts, and the central research challenge involves integrating a synchronisation mechanism within a fully battery-free architecture and establishing efficient wake-up scheduling for end devices, enabling them to establish a connection and form a network.
+
+\section{Research Goals}
+Embracing this challenge, the core objective of this thesis is to devise a synchronisation method that utilises a shared external clock signal. This method will be seamlessly integrated into the existing FreeBie battery-free infrastructure, enabling intermittent end devices to synchronise and establish connections effectively. A novel concept introduced within the thesis involves using heart pulses as a shared external clock signal. This approach, while limited to human body wireless sensor networks, offers substantial benefits within healthcare applications.
+
+\noindent To achieve this core objective, three distinct research goals are delineated:
+
+\begin{enumerate}
+    \item \textbf{Goal 1:} Select a low-power heart rate monitoring sensor and develop an efficient synchronisation algorithm capable of detecting heart rate-based pulses from the sensor and triggering BLE connection setup events.
+    
+    \item \textbf{Goal 2:} Integrate the devised framework, comprising the selected heart rate monitoring sensor and the synchronisation algorithm, into the FreeBie architecture as a supplementary enhancement
+    
+    \item \textbf{Goal 3:} Validate the proposed system's effectiveness on intermittently-powered end devices and compare its performance to that of the current FreeBie design.
+
+\end{enumerate}
+
+\noindent This thesis is dedicated to accomplishing these three research goals, which collectively provide a solution for the previously stated problem within the FreeBie architecture.
+
+\section{Thesis Structure}
+The structure of this report is as follows. Chapter 2 delves into an extensive literature review and explores related works within the domain of batteryless IoT devices and wireless sensor networks. Building upon this foundation, Chapter 3 outlines the architecture and system design of the integrated solution. The subsequent Chapter 4 details the technical implementation of the proposed methodology. Chapter 5 showcases the results obtained from experimental evaluations and performance analyses. Finally, Chapter 6 concludes this thesis by summarising contributions, highlighting potential future research avenues, and underscoring the pivotal role of batteryless IoT devices in shaping the trajectory of IoT deployments.
