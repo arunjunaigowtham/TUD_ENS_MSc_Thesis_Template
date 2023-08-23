@@ -49,6 +49,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{float}
+\usepackage{afterpage}
 
 \usepackage{epstopdf}
 \usepackage{rotating}
@@ -61,11 +62,12 @@
 
 % for url's use "\url{http://www.google.com/}"
 \usepackage{url}
-\usepackage[plainpages=false]{hyperref} 
-% \usepackage[plainpages=false, colorlinks=true, allcolors=black]{hyperref} 
+\def\UrlBreaks{\do\/\do-}
+% \usepackage[plainpages=false]{hyperref} 
+\usepackage[plainpages=false, colorlinks=true, allcolors=black]{hyperref} 
 
 % Information that will be filled in at various points in the report
-\newcommand{\reportTitle}{CardioSync - Heartbeat-Based BLE Synchronization for Batteryless IoT Devices}
+\newcommand{\reportTitle}{CardioSync : Heartbeat-Based BLE Synchronization for Batteryless IoT Devices}
 \newcommand{\reportAuthor}{Arunjunai Rajan Senthil Kumar} % Please put your full and official name here: no abbreviations (and to Dutch students: geen roepnamen)
 \newcommand{\studentNumber}{5515726}
 \newcommand{\reportEmailTUD}{a.r.senthilkumar@student.tudelft.nl}
@@ -73,11 +75,11 @@
 \newcommand{\reportUrlEmailTUD}{\href{mailto:\reportEmailTUD}{\reportEmailTUD}}
 \newcommand{\reportUrlEmailNonTUD}{\href{mailto:\reportEmailNonTUD}{\reportEmailNonTUD}}
 \newcommand{\reportMSC}{Embedded Systems} % Examples are {Embedded Systems} {Computer Engineering} {Computer Science} or {Electrical Engineering}
-\newcommand{\reportDate}{PUT DATE OF PROVIDING THESIS TO GRADUATION COMMITTEE HERE}
-\newcommand{\presentationDate}{30th August 2023}
+\newcommand{\reportDate}{23 August 2023}
+\newcommand{\presentationDate}{30 August 2023}
 \newcommand{\graduationCommittee}{
-Dr. Przemysław Pawełczak& Delft University of Technology \\
-Dr. Nergis Tömen & Delft University of Technology \\
+Dr. Przemysław Pawełczak& Delft University of Technology\\
+Dr. Nergis Tömen & Delft University of Technology\\
 Dr. Jasper De Winkel & Delft University of Technology \\
 }
 
@@ -97,9 +99,9 @@ Dr. Jasper De Winkel & Delft University of Technology \\
 % prof.\,dr.\,Koen Langendoen (chairman) & Delft University of Technology \\ 
 % dr.\,Przemys{\l}aw Pawe{\l}czak & Delft University of Technology \\ 
 
-\newcommand{\reportAbstract}{WRITE YOUR ABSTRACT HERE}
+\newcommand{\reportAbstract}{Batteryless Internet of Things (IoT) devices powered by energy harvesting enable sustainable and maintenance-free operation, but face challenges in achieving synchronised bidirectional communication between intermittently-powered nodes. This thesis presents CardioSync, a novel framework that leverages the human heartbeat as a shared clock to synchronise Bluetooth Low Energy (BLE) connections between battery less devices. CardioSync integrates a low-power optical heart rate sensor to capture real-time heartbeat data. A peak detection algorithm identifies distinct heart rate peaks, establishing synchronisation points for connection-setup events. By scheduling BLE advertising and scanning activities timed with detected peaks, CardioSync aligns connection attempts between intermittently-powered devices. This heartbeat-based synchronisation is integrated into the existing FreeBie architecture for intermittent BLE communication. Experimental evaluations demonstrate CardioSync's ability to successfully establish synchronised connections between batteryless nodes, reducing average connection setup time by up to 1.8x compared to an asynchronous FreeBie system. However, these gains incurred increased power consumption due to the integrated sensor. CardioSync enhances FreeBie's capabilities, enabling efficient intermittent-to-intermittent BLE connections. The proposed technique shows promise for advancing body sensor networks through sustainable and maintenance-free operation. Further work should optimise sensor utilisation and explore adaptive synchronisation to improve energy efficiency}
 
-\newcommand{\reportKeywords}{LIST YOUR KEYWORDS HERE}
+\newcommand{\reportKeywords}{Bidirectional, intermittency, battery-free, heart rate monitor,  }
 
 % Did the thesis lead to a paper? 
 % e.g. The work presented in this thesis has lead to a paper which has been submitted to a conference for publication, pending peer-review
@@ -115,6 +117,7 @@ Dr. Jasper De Winkel & Delft University of Technology \\
 }
 
 \begin{document}
+\emergencystretch 3em
 
 \pagenumbering{alph}
 \pagestyle{empty}
@@ -161,14 +164,14 @@ Dr. Jasper De Winkel & Delft University of Technology \\
 
 % Create tabe of contents: page vii
 \tableofcontents
+% \listoffigures
+% \listoftables
+% \listofalgorithms
 
 \cleardoublepage
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
-
-% Create Introduction: page 1
-\include{introduction}
 
 % Create chapters
 \input{chapters/Introduction/introduction}
@@ -176,12 +179,8 @@ Dr. Jasper De Winkel & Delft University of Technology \\
 \input{chapters/Architecture/architecture}
 \input{chapters/Implementation/implementation}
 \input{chapters/Results/results}
-
-% Create conclusions
-\input{chapters/Conclusion/conclusions}
-
-% Create future work
 \input{chapters/Future Work/futurework}
+\input{chapters/Conclusion/conclusions}
 
 % Create bibliography
 \bibliographystyle{plain} % Please do not change the style of bibliography (yes, it should be `plain`)

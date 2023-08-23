@@ -1,4 +1,82 @@
-\chapter{APPENDIX TITLE}
+\chapter{APPENDIX}
 \label{app:appendix_a}
 
-Appendix body.
+% \section{Overview of Existing FreeBie architecture}
+% \label{sec:freebie_architecture}
+% It is essential to establish a foundation by understanding the existing FreeBie architecture for this thesis. From Figure \ref{fig:architecture}, it can be noted that the whole model of FreeBie is built on top of any normal IoT embedded systems architecture with BLE networking stack. FreeBie includes components like FRAM, External RTC, Time-Deterministic Checkpointing and Restore, and Power Control, all of which leverage the base system's real-time virtualization of time and peripherals to enable unobstructed communication on an intermittently-powered budget \cite{de2022Intermittently}.
+
+
+% \noindent Each of these components serve a critical role on achieving the battery less operation:
+% \begin{itemize}
+%     \item \textbf{FRAM (Ferroelectric RAM):} FRAM is a non-volatile memory technology that offers high read/write speeds and low power consumption. It stores data and program code, ensuring persistence during power cycles. FRAM preserves memory sections during each checkpoint and stores context across separate allocated regions for OS processes, Network processes, and Application processes.
+    
+%     \item \textbf{External RTC (Real-Time Clock):} The external RTC provides accurate timekeeping even during device power-off periods. This time reference is vital for synchronisation and event scheduling. The external RTC remains always powered through onboard capacitors and can control processor power domains using the Power switch and Power control module.
+    
+%     \item \textbf{Time-Deterministic Checkpointing and Restore:} This component maintains data integrity by regularly capturing the device's state. In cases of power disruptions, the system can restore to a known state, preventing data loss and ensuring system consistency. It leverages External RTC and FRAM for uninterrupted atomic operations.
+    
+%     \begin{itemize}
+%         \item \textit{Real-time RTC sync:} This subcomponent synchronises the Ext. RTC with the onboard RTC during each real-time operation resumption from power-off state. It uses FRAM to store the synchronising time \(T_{Sync}\) in the OS context.
+%         \item \textit{Real-time/Dynamic Restoration:} Upon resuming from power-off state, this component restores processes from FRAM for OS processes, network processes, and real-time application processes, as scheduled by the scheduler.
+%         \item \textit{Dynamic Handling of Network Connection:} Responsible for network recovery and dynamic network adaptation, this subcomponent ensures network recovery in unexpected power-offs and adapts to energy conditions while maintaining connection.
+%     \end{itemize}
+    
+%     \item \textbf{Power Control:} Governing power state transitions, power control mechanisms by managing power-on timings, task execution, and low-power modes.
+    
+%     \item \textbf{Super Capacitors and Energy Harvesters:} Integral to FreeBie's energy autonomy, super capacitors and energy harvesters contribute to storing and harnessing energy from ambient sources.
+% \end{itemize}
+
+
+\section{MAX30102 Sensor Configuration}
+\label{sec:sensor_config}
+The initialisation of the MAX30102 sensor happens through nRF's TWI driver. It is noteworthy that the MAX30102 is assigned to \textit{TWI instance 1}, as \textit{TWI instance 0} is exclusively allocated for SPI communication with the external FRAM module in the FreeBie architecture. After successful enabling of TWI interface for the sensor, configuration of various registers of sensor is performed to ensure optimal performance while minimising power consumption. To achieve this, the \texttt{MAX30102\_init()} function is implemented. Within this function, several critical registers are configured as follows:
+
+\begin{itemize}
+    \item \textbf{REG\_INTR\_ENABLE\_1 (0x02U):} This register is set with the value 0xC0 to enable the "A\_FULL\_EN" interrupt, which triggers when the FIFO is full and data is ready for reading.
+    
+    \item \textbf{REG\_FIFO\_CONFIG (0x08U):} The FIFO configuration register is set with settings such as averaging 4 samples per entry, setting FIFO size to 32 (which triggers Interrupt 1 when full), and disabling FIFO rollover.
+    
+    \item \textbf{REG\_MODE\_CONFIG (0x09U):} Configures the operational mode of the sensor. In the context of CardioSync, heart rate mode is selected while disabling Spo2 measurements.
+    
+    \item \textbf{REG\_SPO2\_CONFIG (0x0AU):} Sets parameters for data acquisition including a sampling rate of 50 samples per second, ADC range of 4096nA, pulse width of 118us, and 16-bit ADC resolution.
+    
+    \item \textbf{REG\_LED1\_PA(0x0CU), REG\_LED2\_PA (0x0DU):} Configures LED current; for CardioSync, 1mA is set for both LED1 and LED2.
+\end{itemize}
+
+\noindent By meticulously configuring these registers, the MAX30102 sensor is primed to operate within desired parameters and less power consumption, yet capturing accurate blood flow data for heart rate analysis.
+
+\section{Validation of CardioSync System with Intermittent Power}
+The CardioSync system was tested across various square wave periods with different duty cycles as shown in Table \ref{tab:cardiosync_intermittent_exp}, demonstrating its adaptability to different supply configurations.
+
+\begin{table}[H]
+\scriptsize
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Exp.\\ number\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Turn ON\\ time\\ in seconds\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Turn OFF\\ time\\ in seconds\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Total Period\\ in seconds\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Duty Cyle\\ in percentage\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Connection\\ setup time\\ since boot up\\ in seconds\end{tabular}} \\ \hline
+1  & 4 & 1 & 5  & 80.00\% & 11.718 \\ \hline
+2  & 4 & 2 & 6  & 66.67\% & 13.702 \\ \hline
+3  & 4 & 3 & 7  & 57.14\% & 29.337 \\ \hline
+4  & 4 & 4 & 8  & 50.00\% & 33.641 \\ \hline
+5  & 5 & 1 & 6  & 83.33\% & 9.271  \\ \hline
+6  & 5 & 2 & 7  & 71.43\% & 8.696  \\ \hline
+7  & 5 & 3 & 8  & 62.50\% & 9.19   \\ \hline
+8  & 5 & 4 & 9  & 55.56\% & 37.123 \\ \hline
+9  & 5 & 5 & 10 & 50.00\% & 14.254 \\ \hline
+10 & 6 & 1 & 7  & 85.71\% & 8.265  \\ \hline
+11 & 6 & 2 & 8  & 75.00\% & 8.993  \\ \hline
+12 & 6 & 3 & 9  & 66.67\% & 10.714 \\ \hline
+13 & 6 & 4 & 10 & 60.00\% & 10.986 \\ \hline
+14 & 7 & 1 & 8  & 87.50\% & 8.927  \\ \hline
+15 & 7 & 2 & 9  & 77.78\% & 9.881  \\ \hline
+16 & 7 & 3 & 10 & 70.00\% & 11.341 \\ \hline
+17 & 8 & 1 & 9  & 88.89\% & 11.388 \\ \hline
+18 & 8 & 2 & 10 & 80.00\% & 4.133  \\ \hline
+\end{tabular}
+\caption{Validation of CardioSync system across various square wave periods with different duty cycles. With turn OFF time more than 3 seconds and turn ON time less than 6 seconds, connection setup time increases drastically.}
+\label{tab:cardiosync_intermittent_exp}
+\end{table}
