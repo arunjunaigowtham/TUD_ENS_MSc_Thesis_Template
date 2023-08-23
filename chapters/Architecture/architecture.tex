@@ -25,18 +25,18 @@ The architecture of FreeBie, as described in Section \ref{sec:freebie_architectu
 \begin{figure}[t]
     \begin{subfigure}{1\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{chapters/Architecture/Freebie_concept.pdf}
-        \subcaption{Conceptual diagram illustrating failed asynchronous periodic connection setup attempts in a FreeBie system.}
+        \includegraphics[width=\linewidth]{chapters/Architecture/FreeBie_concept.pdf}
+        \subcaption{Failed asynchronous periodic connection setup attempts in a FreeBie system.}
         \label{fig:concept_freebie}
-        \vspace{3\baselineskip}
+        \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{1\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Architecture/CardioSync_concept.pdf}
-        \caption{Conceptual diagram illustrating possible synchronised connection setup attempts in a CardioSync system. Advertising of peripheral and scanning of central is synchronised by heart rate pulses detected by heart rate sensor connected to the devices.}
+        \subcaption{Successful synchronised connection setup attempts in a CardioSync system. Advertising of peripheral and scanning of central is synchronised by heart rate pulses detected by heart rate sensor connected to the devices.}
         \label{fig:concept_cardiosync}
     \end{subfigure}
-    \caption{}
+    \caption{Conceptual diagram illustrating the need and benefits of synchronisation by comparing the connection setup between two end devices in the asynchronous FreeBie system with the proposed CardioSync framework.}
     \label{fig:freebie_vs_cardiosync}
 \end{figure}
 \clearpage
@@ -54,7 +54,7 @@ The architecture of FreeBie, as described in Section \ref{sec:freebie_architectu
     \item \textbf{Low-Power Heart Rate Sensor:}
     The foundation of the CardioSync framework lies in a carefully selected low-power heart rate sensor. This sensor efficiently captures raw heart rate data, providing the essential input for synchronisation and connection setup activities.
 
-    \item \textbf{CardioSync Real-Time Application:} This extension to the FreeBie architecture introduces the CardioSync module, encompassing several subcomponents responsible for different aspects of the synchronisation process.
+    \item \textbf{CardioSync Real-Time Application:} This extension of the FreeBie architecture introduces the CardioSync module, encompassing several subcomponents responsible for different aspects of the synchronisation process.
     \begin{itemize}
         \item \textbf{Sensor Data Collector:} This subcomponent interfaces with the low-power heart rate sensor, collecting accurate heart rate data. It ensures seamless data acquisition and serves as the initial step in the synchronisation process. It houses the sensor interfacing functionality along with data pre-processing as required for the algorithm.
         

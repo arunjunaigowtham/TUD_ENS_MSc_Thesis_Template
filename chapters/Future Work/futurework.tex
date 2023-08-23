@@ -1,7 +1,7 @@
 \chapter{Future Work}
 \label{chp:futurework}
 
-While this thesis has presented significant advancements in the field of battery-less embedded systems and synchronisation, there are several avenues for further exploration and improvement. The following outlines potential directions for future research
+While this thesis has presented an advancements in the field of battery-less embedded systems and synchronisation, there are several avenues for further exploration and improvement. The following outlines potential directions for future research
 
 \begin{itemize}
     \item \textbf{Fine-Tuning Sensor Utilisation}: Further optimising the utilisation of the heart rate sensor holds the potential for increased energy efficiency. The chosen sensor configurations detailed in Section \ref{sec:sensor_config} are already finely balanced to conserve energy while excelling in heart rate detection. However, there remains room for additional optimisation through adjustments in duty cycle and the bit resolution of the ADC. Additionally, when measuring current while the sensor is interfaced, a noticeable residual current was detected in the Power Profiler Kit \cite{2023Power}. Addressing this could involve employing a power switch for the sensor's $V_\text{DD}$ line, fully deactivating it when the MCU enters an OFF state. This approach has the potential to yield modest reductions in energy consumption.
@@ -12,5 +12,3 @@ While this thesis has presented significant advancements in the field of battery
 
     \item \textbf{Real-World Deployments and Practical Testing:} Conducting real-world deployments and testing CardioSync in various scenarios, including wearable applications or IoT systems, would validate its performance outside controlled environments. Practical challenges and optimisations can be explored.
 \end{itemize}
-
-\noindent The contributions made in this thesis lay the foundation for future advancements in battery-less systems, synchronisation, and intermittent connectivity. Exploring these potential improvements will not only refine the CardioSync framework but also contribute to the broader landscape of energy-efficient and self-sustaining IoT devices.

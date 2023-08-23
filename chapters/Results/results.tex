@@ -1,7 +1,7 @@
 \chapter{Results and Evaluation}
 \label{chap:results}
 
-This chapter presents the results of experimentation, and analysis of data obtained from the CardioSync Framework. Also it compares the key result outcomes of CardioSync framework, such as \textit{BLE connection setup time, power and energy consumption} in comparison to a naive and reference Freebie system that does not employ any synchronisation mechanism. 
+This chapter presents the results of experimentation, and analysis of data obtained from the CardioSync Framework. Also it compares the key result outcomes of CardioSync framework, such as \textit{BLE connection setup time, power and energy consumption} in comparison to a naive and reference FreeBie system that does not employ any synchronisation mechanism. 
 \vspace{1\baselineskip}
 
 \noindent The evaluation of the CardioSync framework is structured into three distinct contexts, inline with the research objectives
@@ -10,7 +10,7 @@ This chapter presents the results of experimentation, and analysis of data obtai
 
     \item Verification of Integrated CardioSync framework in Continuous and Intermittent power.
 
-    \item Comparative analysis of CardioSync Framework vs. Naive Reference FreeBie model.
+    \item Comparative analysis of the CardioSync framework versus Naive reference freebie model.
 \end{enumerate}
 
 \section{Evaluation of Heart Rate Sensor and Peak detection Algorithm}
@@ -18,40 +18,40 @@ This chapter presents the results of experimentation, and analysis of data obtai
 The evaluation in this section is split into two parts - \textit{Sensor accuracy profiling} based on phase difference for a particular peak detected between two sensors and \textit{BLE connection performance} at different sensor sampling rate.
 
 \subsection{Sensor Accuracy Profiling}
-Sensor accuracy to detect heart beat is mainly based on the peak detection algorithm, and also on the configurations of the sensor. However, the sensor was intentionally designed to function within a fixed configuration, optimising power consumption (Refer to Section:\ref{sec:sensor_config} in Appendix \ref{app:appendix_a}). So to quantitatively assess accuracy of the algorithm, the phase difference for heart pulse detection between two sensors was selected as the focus. This parameter was examined across various sampling rates of the peak detection algorithm.
+Sensor accuracy for detecting heart beat is mainly based on the peak detection algorithm, and also on the sensor configurations. However, the sensor was intentionally designed to function within a fixed configuration, optimising power consumption (Refer to Section:\ref{sec:sensor_config} in Appendix \ref{app:appendix_a}). So to quantitatively assess accuracy of the algorithm, the phase difference for heart pulse detection between two sensors was selected as the focus. This parameter was examined at various sampling rates of the peak detection algorithm.
 
 \subsubsection{Experimental Setup}
-To measure the phase difference between the heart pulse detected by two different MAX30102 sensors and a nRF52840DK development board \cite{nRF52840} was used. The measurement software was developed based on nRF5 SDK \cite{2023nRF5} to interface with two sensor boards using two-wire interface (TWI).  The software would use the heart beat detection algorithm of the CardioSync system to independently identify heart pulse peaks for each sensor and log the corresponding detection time. Subsequently, the phase difference should be computed between the aforementioned peaks. After two sensors have recorded around 250 peak detection, an experiment is finished, and it is repeated four times, each time with different sensor sampling rates: \textit{25Hz, 50Hz, 100Hz, and 1000Hz}.
+To measure the phase difference between the heart pulse detected by two different MAX30102 sensors and a nRF52840DK development board \cite{nRF52840} was used. The measurement software was developed based on nRF5 SDK \cite{2023nRF5} to interface with two sensor boards using two-wire interface (TWI).  The software would use the heart beat detection algorithm of the CardioSync system to independently identify heart pulse peaks for each sensor and log the corresponding detection time. Subsequently, the phase difference should be computed between the aforementioned peaks. After two sensors have recorded around 250 peak detection, an experiment is finished, and it is repeated four times, each time with different sensor sampling rates: \textit{25 Hz, 50 Hz, 100 Hz, and 1000 Hz}.
 
 \subsubsection{Results Discussion}
 \begin{figure}[t]
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/histogram_25.png}
-        \caption{25Hz}
+        \caption{25 Hz}
         \label{fig:histogram_25}
         \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/histogram_50.png}
-        \caption{50Hz}
+        \caption{50 Hz}
         \label{fig:histogram_50}
         \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/histogram_100.png}
-        \caption{100Hz}
+        \caption{100 Hz}
         \label{fig:histogram_100}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/histogram_1000.png}
-        \caption{1000Hz}
+        \caption{1000 Hz}
         \label{fig:histogram_1000}
     \end{subfigure}
-    \caption{Histograms of phase differences between heart pulses detected by two sensors at different sensor read frequencies. At 25 Hz and 50 Hz, larger phase differences occur at more frequency than 100 Hz. At 100 Hz, phase differences are evenly distributed around mean. At 100Hz, phases differences are more irregular.}
+    \caption{Histograms of phase differences between heart pulses detected by two sensors at different sensor read frequencies. At 25 Hz and 50 Hz, larger phase differences occur at more frequency than 100 Hz. At 100 Hz, phase differences are evenly distributed around mean. At 100 Hz, phases differences are more irregular.}
     \label{fig:histograms_sensor_accuracy}
 \end{figure}
 
@@ -74,16 +74,16 @@ To measure the phase difference between the heart pulse detected by two differen
 The histograms shown in Figure \ref{fig:histograms_sensor_accuracy} illustrate the distribution of phase differences recorded for various sensor sampling rates. The mean, minimum, and maximum phase differences are summarised in \autoref{tab:phase_difference_comp}. Analysing these distributions and their statistical characteristics reveals that phase difference in detection time between two sensors is inevitable. However, this data holds valuable insights for determining the optimal sensor read frequency for the CardioSync system.
 \vspace{1\baselineskip}
 
-\noindent At different sampling rates (25Hz, 50Hz, 100Hz, and 1000Hz), the distribution of phase differences between heart rate peaks reveals distinct characteristics. At 25Hz and 50Hz, a right-skewed distribution indicates a higher likelihood of larger phase differences, with about 33\% and 35\% of detected peaks respectively being more than 305ms out of phase. In contrast, a slightly right-skewed normal distribution at 100Hz suggests that phase differences mostly occur around the mean value, with around 24\% exceeding the 305ms threshold. A 1000Hz sampling rate presents an irregular phase difference distribution, highlighting unpredictable occurrences.
+\noindent At different sampling rates (25 Hz, 50 Hz, 100 Hz, and 1000 Hz), the distribution of phase differences between heart rate peaks reveals distinct characteristics. At 25 Hz and 50 Hz, a right-skewed distribution indicates a higher likelihood of larger phase differences, with about 33\% and 35\% of detected peaks respectively being more than 305ms out of phase. In contrast, a slightly right-skewed normal distribution at 100 Hz suggests that phase differences mostly occur around the mean value, with around 24\% exceeding the 305ms threshold. A 1000 Hz sampling rate presents an irregular phase difference distribution, highlighting unpredictable occurrences.
 \vspace{1\baselineskip}
 
-\noindent From all these observations, it can be concluded that \textbf{\textbf{Sampling rate 100Hz}} is more predictable in terms of phase difference and is more accurate in heart pulse peak detection between two sensors. Also, even the sensor settings are at 50 samples per second, thereby not losing any samples from the sensor.
+\noindent From all these observations, it can be concluded that \textbf{\textbf{Sampling rate 100 Hz}} is more predictable in terms of phase difference and is more accurate in heart pulse peak detection between two sensors. Also, even the sensor settings are at 50 samples per second, thereby not losing any samples from the sensor.
 
 
 
-\subsection{BLE connection performance}
+\subsection{BLE Connection Performance}
 
-\noindent The aim of this assessment is to analyse the performance of the novel CardioSync peak detection algorithm with the synchronised Bluetooth Low Energy (BLE) connection at different sensor sampling rates. This evaluation is conducted in preparation for the integration of the algorithm into the FreeBie architecture. The analysis was based on the number of peaks needed for successful connection establishment.
+\noindent The aim of this assessment is to analyse the performance of the novel CardioSync peak detection algorithm with synchronised Bluetooth Low Energy (BLE) connection at different sensor sampling rates. This evaluation is conducted in preparation for the integration of the algorithm into the FreeBie architecture. The analysis was based on the number of peaks needed for successful connection establishment.
 
 \subsubsection{Experimental Setup}
 To record the number of heart pulse peaks needed for successful BLE connection, two nRF52840DK development board \cite{nRF52840} were used and each board was interfaced with one MAX30102 sensor \cite{2018MAX30102} to its I2C GPIO pins. Measurement software was developed based on the PacketCraft BLE stack \cite{2020Packetcraft}. The devised measurement code calculates the average time interval between peaks detected by the algorithm in run time. Also once the connection is established, it records the number of peaks detected before connection.
@@ -126,10 +126,10 @@ To record the number of heart pulse peaks needed for successful BLE connection, 
 \label{tab:ble_params}
 \end{table}
 
-The results in \autoref{tab:ble_conn_comp} demonstrate that a sampling frequency of 1000Hz results in a shorter average time interval between peaks, enhancing connection establishment time due to quicker peak detection. However, this frequency exhibited an inconsistent number of peaks between experiments for connection establishment, leading to a higher average number of required peaks. Consequently, balancing these findings with the earlier assessment of sensor accuracy, \textbf{the 100Hz sampling rate was selected for integrating the CardioSync system}.
+The results in \autoref{tab:ble_conn_comp} demonstrate that a sampling frequency of 1000 Hz results in a shorter average time interval between peaks, enhancing connection establishment time due to quicker peak detection. However, this frequency exhibited an inconsistent number of peaks between experiments for connection establishment, leading to a higher average number of required peaks. Consequently, balancing these findings with the earlier assessment of sensor accuracy, \textbf{the 100 Hz sampling rate was selected for integrating the CardioSync system}.
 \vspace{1\baselineskip}
 
-\noindent Furthermore, the selection of a sample frequency of 100Hz has led to the determination of BLE parameters for the CardioSync system, backed up by the outcomes of this evaluation. In order to address the \textbf{average phase difference of 178.75 milliseconds} observed between two sensors and reducing the number of peaks necessary to establish a connection, the BLE advertising and scanning configurations have been chosen as outlined in Table \ref{tab:ble_params}. 
+\noindent Furthermore, the selection of a sample frequency of 100 Hz has led to the determination of BLE parameters for the CardioSync system, backed up by the outcomes of this evaluation. In order to address the \textbf{average phase difference of 178.75 milliseconds} observed between two sensors and reducing the number of peaks necessary to establish a connection, the BLE advertising and scanning configurations have been chosen as outlined in Table \ref{tab:ble_params}. 
 \vspace{1\baselineskip}
 
 \noindent Both the scan and advertising duration have been set at 200 milliseconds for each detected heart pulse. This allows for a sufficient window of time to synchronise and establish a connection, even in cases where there may be a significant disparity between the readings from two sensors.
@@ -150,7 +150,7 @@ The experimental configuration comprises of two FreeBie boards \cite{Researchers
 \noindent The \textit{nRF Power Profiler Kit II (PPK)} \cite{2023Power} is employed for the purpose of measuring energy consumption throughout the runtime by hooking it to the \(\text{V}_\text{Store}\) pin of the board. Additionally, it serves as a continuous source of power for the FreeBie board. Similar to the Saleae Logic analyser, the PPK is capable of capturing and recording current measurements of a device in real-time.
 
 \subsubsection{Software Setup}
-Regarding the experimental software setup, modifications have been made to the system described in Chapter \ref{chap:implementation}. These modifications involve the activation of two GPIO pins to indicate the start and stop of the sensor read phase and the successful establishment of a BLE connection respectively. One of the FreeBie board is programmed with the CardioSync Peripheral code, while the other is flashed with the CardioSync Central code.
+Regarding the experimental software setup, modifications have been made to the system described in Chapter \ref{chap:implementation}. These modifications involve the activation of two GPIO pins to indicate the start and stop of the sensor read phase and the successful establishment of a BLE connection respectively. One of the FreeBie boards is programmed with the CardioSync Peripheral code, while the other is flashed with the CardioSync Central code.
 
 \subsection{Results Discussion}
 
@@ -158,7 +158,7 @@ Regarding the experimental software setup, modifications have been made to the s
     \begin{subfigure}{1\linewidth}
         \centering
         \includegraphics[width=1\linewidth]{chapters/Results/Connection_cardiosync_continous_peripheral.png}
-        \caption{Voltage measurement for peripheral device.}
+        \caption{Voltage measurement for peripheral device}
         \label{fig:continous_connection_cardiosync_peripheral}
         \vspace{1\baselineskip}
     \end{subfigure}
@@ -168,7 +168,7 @@ Regarding the experimental software setup, modifications have been made to the s
         \caption{Voltage measurement for central device.}
         \label{fig:continous_connection_cardiosync_central}
     \end{subfigure}
-    \caption{Real-time voltage measurement for the CardioSync system \textit{with continuous power supply}. Each of the three plot in two devices shows different measurement. From the top to bottom in each device, 1) Plot of \(\text{V}_\text{Store}\) : Supply Voltage, 2) Plot of \(\text{V}_\text{DD\_MCU}\) : MCU voltage and 3) Plot of sensor read period indication. The green vertical line through all the plots indicates the successful BLE connection setup event.}
+    \caption{Real-time voltage measurement for the CardioSync system \textit{with continuous power supply}. Each of the three plot in two devices shows different measurement. From the top to bottom in each device, 1) Plot of \(\text{V}_\text{Store}\): Supply Voltage, 2) Plot of \(\text{V}_\text{DD\_MCU}\): MCU voltage and 3) Plot of sensor read period indication. The green vertical line through all the plots indicates the successful BLE connection setup event}
     \label{fig:continous_connection_cardiosync}
 \end{figure}
 
@@ -176,29 +176,30 @@ Regarding the experimental software setup, modifications have been made to the s
     \begin{subfigure}{1\linewidth}
         \centering
         \includegraphics[width=1\linewidth]{chapters/Results/Connection_cardiosync_intermittent_peripheral.png}
-        \caption{Voltage measurement for peripheral device.}
+        \caption{Voltage measurement for peripheral device}
         \label{fig:intermittent_connection_cardiosync_peripheral}
         \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{1\linewidth}
         \centering
         \includegraphics[width=1\linewidth]{chapters/Results/Connection_cardiosync_intermittent_central.png}
-        \caption{Voltage measurement for central device.}
+        \caption{Voltage measurement for central device}
         \label{fig:intermittent_connection_cardiosync_central}
     \end{subfigure}
-    \caption{Real-time voltage measurement for the CardioSync system \textit{with intermittent power supply}. Each of the three plot in two devices shows different measurement. From the top to bottom in each device, 1) Plot of \(\text{V}_\text{Store}\) : Supply Voltage, 2) Plot of \(\text{V}_\text{DD\_MCU}\) : MCU voltage and 3) Plot of sensor read period indication. The green vertical line through all the plots indicates the successful BLE connection setup event.}
+    \caption{Real-time voltage measurement for the CardioSync system \textit{with intermittent power supply}. Each of the three plot in two devices shows different measurement. From the top to bottom in each device, 1) Plot of \(\text{V}_\text{Store}\): Supply Voltage, 2) Plot of \(\text{V}_\text{DD\_MCU}\): MCU voltage and 3) Plot of sensor read period indication. The green vertical line through all the plots indicates the successful BLE connection setup event.}
     \label{fig:intermittent_connection_cardiosync}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}{0.85\linewidth}        
+    \begin{subfigure}{0.8\linewidth}        
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - CardioSync Central.png}
         \caption{Central}
         \label{fig:current_cardiosync_central}
+        \vspace{1\baselineskip}
     \end{subfigure}
-    \begin{subfigure}{0.85\linewidth}    
+    \begin{subfigure}{0.8\linewidth}    
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - CardioSync Peripheral.png}
         \caption{Peripheral}
@@ -209,19 +210,19 @@ Regarding the experimental software setup, modifications have been made to the s
 \end{figure}
 
 \subsubsection{Validation of Working CardioSync}
-The time series plot depicted in \autoref{fig:continous_connection_cardiosync} illustrates the operation of CardioSync framework with continuous powered input. It can be asserted from the plot that there is the periodic shutdown of \(\text{V}_\text{DD\_MCU}\) during times of inactivity, therefore corroborating the anticipated power-saving benefits associated with the integration of FreeBie.
+The time series plot depicted in \autoref{fig:continous_connection_cardiosync} illustrates the operation of CardioSync framework with continuous powered input. It can be asserted from the plots that there is the periodic shutdown of \(\text{V}_\text{DD\_MCU}\) during times of inactivity, therefore corroborating the anticipated power-saving benefits associated with the integration of FreeBie.
 \vspace{1\baselineskip}
 
 \noindent As elucidated in Chapter \ref{chap:implementation}, the system from \autoref{fig:continous_connection_cardiosync} demonstrates the anticipated functionality of "Read and Synchronise" for a period of \textit{3.40 seconds} where the sensor is being actively read. Followed by that, we also see  the "Sleep and Synchronise" functionality, where the system exclusively reactivates at the interval of each heartbeat pulse in order to initiate a connection. The connection establishment event, which is closely synced with the heart rate pulses, is shown by the green vertical line in Figure \ref{fig:continous_connection_cardiosync}.
 \vspace{1\baselineskip}
 
-\noindent A similar verification was conducted under intermittent power supply using a square wave signal with a duty cycle of 75\% for a duration of 8 seconds. The time series plot (\autoref{fig:intermittent_connection_cardiosync}) reveals the system's adaptability to changing power availability, as connections continue to be established in coordination with the heart beat, despite power fluctuations. In addition, the CardioSync system was tested across various square wave periods with different duty cycles as shown in Table \ref{tab:cardiosync_intermittent_exp} in Appendix \ref{app:appendix_a}, demonstrating its adaptability to different supply configurations.
+\noindent A similar verification was carried out under intermittent power supply using a square wave signal with a duty cycle of 75\% for a duration of 8 seconds. The time series plot (\autoref{fig:intermittent_connection_cardiosync}) reveals the adaptability of the system to changing power availability, as connections continue to be established in coordination with heart beat, despite power fluctuations. Additionally, the CardioSync system was tested in various square wave periods with different duty cycles as shown in Table \ref{tab:cardiosync_intermittent_exp} in Appendix \ref{app:appendix_a}, demonstrating its adaptability to different supply configurations.
 
 \subsubsection{Current Measurement of CardioSync system}
-Figure \ref{fig:current_cardiosync}, gives us the current measurement for different phases of the CardioSync system operation for synchronising BLE connection. The measured current values are afterwards utilised for comparative analysis against naive reference system.
+Figure \ref{fig:current_cardiosync}, gives us the current measurement for different phases of the CardioSync system operation to synchronise the BLE connection. The measured current values are afterwards utilised for comparative analysis against naive reference system.
 \vspace{1\baselineskip}
 
-\noindent It is important to note that the "Read and Synchronise" phase requires a higher current compared to the "Sleep and Synchronise" phase. This behaviour is substantiated across both central and peripheral devices in the current measurement-driven evaluation. In the Central device, "Read and Synchronise" phase happens for around \textit{3.41 seconds} and consumes an average current of approximately \textit{8.66mA}. Similarly, the Peripheral device registers \textit{7.42mA} over a \textit{3.44-second} interval of sensor read phase. Notably, during the "Sleep and Synchronise" phase of 10 seconds, both central and peripheral devices exhibit a substantially lower average current consumption—\textit{2.98mA and 1.5mA}, respectively.
+\noindent It is important to note that the "Read and Synchronise" phase requires a higher current compared to the "Sleep and Synchronise" phase. This behaviour is supported by central and peripheral devices in the current measurement-driven evaluation. In the Central device, "Read and Synchronise" phase happens for around \textit{3.41 seconds} and consumes an average current of approximately \textit{8.66mA}. Similarly, the peripheral device registers \textit{7.42mA} over a \textit{3.44-second} interval of sensor read phase. Notably, during the "Sleep and Synchronise" phase of 10 seconds, both central and peripheral devices exhibit a substantially lower average current consumption—\textit{2.98mA and 1.5mA}, respectively.
 \vspace{1\baselineskip}
 
 \noindent The values of these evaluation are afterwards utilised in the computation of the energy expended by the device for the purpose of synchronising a BLE connection.
@@ -268,39 +269,39 @@ In this section, we start by introducing a naive reference model of Battery-Free
 \begin{figure}[t]
     \begin{subfigure}{0.5\linewidth}
         \centering
-        \includegraphics[width=1\linewidth]{chapters/Results/Connection_Freebie_low_peripheral.png}
+        \includegraphics[width=1\linewidth]{chapters/Results/Connection_FreeBie_low_peripheral.png}
         \caption{\scriptsize{FreeBie Low - Peripheral}}
         \vspace{1\baselineskip}
     \end{subfigure}\hfill
     \begin{subfigure}{0.5\linewidth}
         \centering
-        \includegraphics[width=1\linewidth]{chapters/Results/Connection_Freebie_low_central.png}
+        \includegraphics[width=1\linewidth]{chapters/Results/Connection_FreeBie_low_central.png}
         \caption{\scriptsize{FreeBie Low - Central}}
         \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
-        \includegraphics[width=1\linewidth]{chapters/Results/Connection_Freebie_medium_peripheral.png}
+        \includegraphics[width=1\linewidth]{chapters/Results/Connection_FreeBie_medium_peripheral.png}
         \caption{\scriptsize{FreeBie Medium - Peripheral}}
         \vspace{1\baselineskip}
     \end{subfigure}\hfill
     \begin{subfigure}{0.5\linewidth}
         \centering
-        \includegraphics[width=1\linewidth]{chapters/Results/Connection_Freebie_medium_central.png}
+        \includegraphics[width=1\linewidth]{chapters/Results/Connection_FreeBie_medium_central.png}
         \caption{\scriptsize{FreeBie Medium - Central}}
         \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
-        \includegraphics[width=1\linewidth]{chapters/Results/Connection_Freebie_high_peripheral.png}
+        \includegraphics[width=1\linewidth]{chapters/Results/Connection_FreeBie_high_peripheral.png}
         \caption{\scriptsize{FreeBie High - Peripheral}}
     \end{subfigure} \hfill
     \begin{subfigure}{0.5\linewidth}
         \centering
-        \includegraphics[width=1\linewidth]{chapters/Results/Connection_Freebie_high_central.png}
+        \includegraphics[width=1\linewidth]{chapters/Results/Connection_FreeBie_high_central.png}
         \caption{\scriptsize{FreeBie High - Central device}}
     \end{subfigure}         
-    \caption{Real-time voltage measurement of FreeBie system. Each of the two plots in both devices for each configuration shows different measurements. From top to bottom in each device, 1) Plot of \(\text{V}_\text{Store}\) : Supply Voltage and 2) Plot of \(\text{V}_\text{DD\_MCU}\) : MCU voltage. The green vertical line through all the plots indicates the successful BLE connection setup event.}
+    \caption{Real-time voltage measurement of FreeBie system. Each of the two plots in both devices for each configuration shows different measurements. From top to bottom in each device, 1) Plot of \(\text{V}_\text{Store}\): Supply Voltage and 2) Plot of \(\text{V}_\text{DD\_MCU}\): MCU voltage. The green vertical line through all the plots indicates the successful BLE connection setup event.}
     \label{fig:voltage_freebie}
 \end{figure}
 \begin{figure}[t]
@@ -309,36 +310,42 @@ In this section, we start by introducing a naive reference model of Battery-Free
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - FreeBie Central Low.png}
         \caption{FreeBie Low - Central}
         \label{fig:freebie_low_central}
+        \vspace{1\baselineskip}
     \end{subfigure}\hfill
     \begin{subfigure}{0.45\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - FreeBie Peripheral Low.png}
         \caption{FreeBie Low - Peripheral}
         \label{fig:freebie_low_peripheral}
+        \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{0.45\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - FreeBie Central Medium.png}
         \caption{FreeBie Medium- Central}
         \label{fig:freebie_medium_central}
+        \vspace{1\baselineskip}
     \end{subfigure}\hfill
     \begin{subfigure}{0.45\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - FreeBie Peripheral Medium.png}
         \caption{FreeBie Medium - Peripheral}
         \label{fig:freebie_medium_peripheral}
+        \vspace{1\baselineskip}
     \end{subfigure}
     \begin{subfigure}{0.45\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - FreeBie Central High.png}
         \caption{FreeBie High- Central}
         \label{fig:freebie_high_central}
+        \vspace{1\baselineskip}
     \end{subfigure}\hfill
     \begin{subfigure}{0.45\linewidth}
         \centering
         \includegraphics[width=\linewidth]{chapters/Results/Current vs Timestamp - FreeBie Peripheral High.png}
         \caption{FreeBie High - Peripheral}
         \label{fig:freebie_high_peripheral}
+        \vspace{1\baselineskip}
     \end{subfigure}
     \caption{Current measurement in idle state without connection establishment for different configurations of reference FreeBie system.}
     \label{fig:current_freebie}
@@ -363,15 +370,15 @@ In this section, we start by introducing a naive reference model of Battery-Free
 \noindent Time series voltage measurement plots were generated for each configuration using the same experimental setup discussed in Section \ref{sec:experimental_setup}, as shown in Figure \ref{fig:voltage_freebie}. These plots capture connection establishment during periodic BLE events, with the device entering a sleep state between events, as evidenced by the \(\text{V}_\text{DD\_MCU}\) plot for both Central and Peripheral sides.
 \vspace{1\baselineskip}
 
-\noindent Additionally, current trend measured for each BLE configuration in both end devices, as plotted in Figure \ref{fig:current_freebie}, facilitated our comparative energy and power analysis. Then the average current required for BLE connection attempts under various configurations was calculated as illustrated in Table \ref{tab:avg_current_freebie}. 
+\noindent Additionally, current trend measured for each BLE configuration, as plotted in Figure \ref{fig:current_freebie}, facilitated our comparative energy and power analysis. The average current required for BLE connection attempts under various configurations were calculated as illustrated in Table \ref{tab:avg_current_freebie}. 
 
 \subsection{Experimental Setup}
 The experimental setup used in this study for comparative assessment is identical to the one stated in Section \ref{sec:experimental_setup}. The experiment recorded the first connection setup time since boot-up for both the CardioSync system and the reference system separately. The measurement of sensor read time is also recorded in the context of the CardioSync system. The experiment was conducted a total of 20 times using the CardioSync device. In the context of the reference system, the experiment is iterated six times for each of the three distinct BLE configurations.
 \vspace{1\baselineskip}
 
-\noindent After data collection, the quantification of energy consumption becomes a focal point. The computation of energy expended by the device during each experiment, leading up to connection establishment, is achieved using the formula: \[\text{E(Joules)} = \text{V} \times I_\text{avg} \times T_{\text{Conn}}\].
+\noindent After data collection, the quantification of energy consumption becomes a focal point. The computation of energy expended by the device during each experiment, leading up to connection establishment, is achieved using the formula \[\text{E} = \text{V} \times I_\text{avg} \times T_{\text{Conn}},\]
 
-\noindent The average current $I_\text{avg}$ is measured during distinct phases for both devices, the average voltage supply is 2.6 Volts ($\text{V}$) and $T_\text{Conn}$ corresponds to the time taken to establish a BLE connection since boot up of the device. 
+\noindent where the average current $I_\text{avg}$ is measured during distinct phases for both devices, the average voltage supply is 2.6 Volts ($\text{V}$) and $T_\text{Conn}$ corresponds to the time taken to establish a BLE connection since boot up of the device. 
 \vspace{1\baselineskip}
 
 
@@ -384,7 +391,7 @@ The experimental setup used in this study for comparative assessment is identica
 \end{figure}
 
 
-The bar plot in Figure \ref{fig:conn_time_comp} graphically represents the average connection duration across different systems. Though CardioSync exhibits a slightly longer average connection time compared to the low configuration of the reference FreeBie system, this distinction remains negligible. In contrast, juxtaposing CardioSync with Freebie Medium and FreeBie High configurations reveals a notable improvement in connection efficiency. Impressively, CardioSync achieves an average connection time \textbf{1.79 times faster than FreeBie medium and 1.65 times faster than FreeBie high}.
+The bar plot in Figure \ref{fig:conn_time_comp} graphically represents the average connection duration across different systems. Though CardioSync exhibited a slightly longer average connection time compared to the low configuration of the reference FreeBie system, this distinction remains negligible. In contrast, juxtaposing CardioSync with FreeBie Medium and FreeBie High configurations reveals a notable improvement in connection efficiency. Impressively, CardioSync achieves an average connection time \textbf{1.79 times faster than FreeBie medium and 1.65 times faster than FreeBie high}.
 \vspace{1\baselineskip}
 
 \noindent These insights offer valuable perspectives when considering practical real-world scenarios in the specific contexts chosen to represent the FreeBie reference systems:
@@ -402,7 +409,7 @@ The bar plot in Figure \ref{fig:conn_time_comp} graphically represents the avera
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.7\linewidth]{chapters/Results/Energy_comparison.png}
-    \caption{Comparison of average energy consumed till connection setup for each system}
+    \caption{Comparison of average energy consumed till connection setup for each system.}
     \label{fig:energy_comp}
 \end{figure}
 
@@ -418,6 +425,7 @@ The bar plot in Figure \ref{fig:conn_time_comp} graphically represents the avera
     \item \textbf{Limited-Energy Scenario (FreeBie Low):} CardioSync's higher energy consumption aligns with scenarios where energy constraints are paramount, raising questions about its feasibility in such settings.
     
     \item \textbf{Balanced-Energy Scenario (FreeBie Medium):} In scenarios like fitness trackers, where energy resources are limited, the energy efficiency of CardioSync becomes a crucial consideration for extended device functionality. This is particularly important when connection setups fail for extended periods, despite CardioSync demonstrating its ability to operate with intermittent power sources.
+    \vspace{1\baselineskip}
     
     \item \textbf{Abundant-Energy Scenario (FreeBie High):} While CardioSync's energy consumption is higher, its speed advantage suggests suitability for scenarios where connection efficiency is prioritised due to surplus energy availability.
 \end{itemize}
@@ -433,28 +441,25 @@ The bar plot in Figure \ref{fig:conn_time_comp} graphically represents the avera
 % \noindent The bar chart depicted in Figure \ref{fig:power_comp} offers a visual representation of the average power expended to establish a connection for each system. Comparing these outcomes underscores that CardioSync consumes significantly more power when compared to the reference FreeBie systems. In comparison to FreeBie Low, CardioSync's power consumption is \textbf{5.66 times higher}. Similarly, in relation to FreeBie Medium and FreeBie High, CardioSync's power consumption is \textbf{4.36 and 3.70 times higher}, respectively. This power discrepancy mirrors the energy consumption pattern observed earlier and is congruent with the inherent trade-offs of the CardioSync system.
 
 
-\subsection{Understanding Connection Setup Vs. Power}
+\subsection{Understanding Connection Setup versus Power}
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.7\linewidth]{chapters/Results/Scatter_plot.png}
-    \caption{Scatter plot showing Connection time Vs. Power}
+    \caption{Scatter plot showing connection time versus power.}
     \label{fig:scatter_conn_power}
 \end{figure}
 
 \noindent Figure \ref{fig:scatter_conn_power} presents an insightful juxtaposition of connection time against power consumption for both the CardioSync and reference FreeBie systems. Notably, the distribution of experimental data points for the CardioSync system predominantly converges in the upper left quadrant of the graph. In contrast, the scatter plot depicting the reference FreeBie system showcases a more dispersed arrangement of data points, spanning across the lower half of the graph.
 \vspace{1\baselineskip}
 
-\noindent This disparity in the distribution of data highlights a pivotal distinction between the two systems. While the CardioSync system exhibits greater power consumption, it consistently achieves expedited connection times. In contrast, the reference FreeBie system, characterised by its asynchronous nature, demonstrates a wider range of connection times. This inconsistency in connection times, despite relatively lower power consumption, highlights the challenges inherent in achieving synchronisation within the battery-less FreeBie architecture.
-\vspace{1\baselineskip}
-
-\noindent In essence, the scatter plot serves as a visual testament to the trade-offs between power consumption and connection time. The CardioSync system, which has denser data points in the upper left quadrant, is an example of the potential advantages of utilising external synchronisation mechanisms to achieve consistent and effective connection times in a battery-free context.
+\noindent This disparity in the distribution of data highlights a pivotal distinction between the two systems. While the CardioSync system exhibits greater power consumption, it consistently achieves expedited connection times. In contrast, the reference FreeBie system, characterised by its asynchronous nature, demonstrates a wider range of connection times. This inconsistency in connection times, despite relatively lower power consumption, highlights the challenges inherent in achieving synchronisation within the battery-less FreeBie architecture. In essence, the scatter plot serves as a visual testament to the trade-offs between power consumption and connection time.
 
 
 \section{Discussion of Key Findings}
 In this section, we explore the implications and insights stemming from the comparative analysis between the CardioSync framework and the reference FreeBie system, shedding light on their performance and potential trade-offs.
 
 \begin{itemize}
-    \item \textbf{Power and Energy Efficiency:} CardioSync demonstrated higher connection time efficiency, counterbalanced by increased power and energy consumption. This is due to the intentional inclusion of the MAX30102 sensor for synchronisation, which inherently demands additional energy. It's worth noting that the energy spent to establish a synchronised reconnection in case of connection timeouts is significantly lower in CardioSync compared to naive reference FreeBie systems.
+    \item \textbf{Power and Energy Efficiency:} CardioSync demonstrated higher connection time efficiency, counterbalanced by increased power and energy consumption. This is due to the intentional inclusion of the MAX30102 sensor for synchronisation, which inherently demands additional energy. It is worth noting that the energy spent to establish a synchronised reconnection in case of connection timeouts is significantly lower in CardioSync compared to naive reference FreeBie systems.
 
     \item \textbf{Connection Time and Synchronisation:} CardioSync consistently achieved reduced connection times, while the reference FreeBie system exhibited a wider range of connection times, reflecting its asynchronous nature. Importantly, the readings from the reference system are after intentional synchronisation. Without this, the reference system's BLE advertising and scanning intervals remain asynchronous, rendering it unable to establish connections. In contrast, CardioSync achieves synchronisation effortlessly.
 

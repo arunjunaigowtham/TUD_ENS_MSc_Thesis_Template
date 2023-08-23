@@ -14,15 +14,15 @@ This section outlines the necessary hardware setup and software environment requ
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.6\linewidth]{chapters/Implementation/Freebie.png}
-    \caption{FreeBie mote (front side). A total size is 1”×1”. Components marked as A – J are explained in the paper \cite{de2022Intermittently}.}
+    \includegraphics[width=0.6\linewidth]{chapters/Implementation/FreeBie.png}
+    \caption{FreeBie mote (front side). A total size is 1”×1”. A: BLE ARM-based MCU - nRF52840, B: External RTC - AM1815, C: OPT3004 luminosity sensor, D: BMA400 accelerometer, E: BQ25570 energy harvester, F: Two parallel 7.5 mF capacitors, G: , MB85RS4MT fast non-volatile Ferroelectric Random Access Memory (FRAM), H: External power switch, I: SN74AUP2G79 flip-flop that allows the display to stay on when the MCU is off, J: Logic/switches prevent always-on signals from reaching the MCU when its OFF. \cite{de2022Intermittently}.}
     \label{fig:freebie}
 \end{figure}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.4\linewidth]{chapters/Implementation/MAX30102.jpg}
-    \caption{MAX30102 Sensor module (front side). The pin out marked are VIN: Module power supply 1.8V to 5V; GND: Ground; SCL: I2C clock bus; SDA: I2C data bus \cite{max30102pinout}.}
+    \caption{MAX30102 sensor module (front side). The pin out marked are VIN: Module power supply 1.8V to 5V; GND: Ground; SCL: I2C clock bus; SDA: I2C data bus \cite{max30102pinout}.}
     \label{fig:max30102}
 \end{figure}
 
@@ -31,12 +31,12 @@ This section outlines the necessary hardware setup and software environment requ
     
     \item \textbf{MAX30102 Sensor Board:} The MAX30102 sensor board from Maxim Integrated, shown in \autoref{fig:max30102}, serves as a critical element for heart rate monitoring. The sensor board features built-in pull-up resistors of 4.7k\(\Omega\) in the \(\text{I}^2\text{C}\) pin outs \cite{2018MAX30102}. However, we noticed even when MCU is in power save or sleep state, instead of near zero voltage and current, a considerable voltage difference of 1.6 Volts in $V_{\text{DD\_MCU}}$ and a current of 1.8mA is drawn by those external pull up resistors. For that reason, sensor's resistors were removed and instead the on-board pull up resistors of the nRF52840 were employed through Software configuration \cite{2021nrf52840pullup}.
     
-    \item \textbf{Connection Configuration:} Based on the pinout configuration of the FreeBie schematics \cite{FreebieGithub},  \(\text{I}^2\text{C}\) Clock Line (SCL) and \(\text{I}^2\text{C}\) Data Line (SDA) of the MAX30102 is connected to the respective GPIO pins. The MAX30102 is powered by the onboard super capacitors, connected to the $V_{\text{Batt}}$ pinout of the FreeBie Mote.
+    \item \textbf{Connection Configuration:} Based on the pinout configuration of the FreeBie schematics \cite{FreeBieGithub},  \(\text{I}^2\text{C}\) Clock Line (SCL) and \(\text{I}^2\text{C}\) Data Line (SDA) of the MAX30102 is connected to the respective GPIO pins. The MAX30102 is powered by the onboard super capacitors, connected to the $V_{\text{Batt}}$ pinout of the FreeBie Mote.
 \end{itemize}
 
 \subsection{Software Setup}
 \label{sec:software_setup_impl}
-The implementation of the CardioSync framework builds upon the open-source FreeBie source code, available from the TU Delft Sustainable Systems Lab repository \cite{FreebieGithub}. The adaptation process involves customising the existing \textit{"template"} application to accommodate the CardioSync system architecture  - MAX30102 sensor and the Heart Rate peak detection algorithm.
+The implementation of the CardioSync framework builds upon the open-source FreeBie source code, available from the TU Delft Sustainable Systems Lab repository \cite{FreeBieGithub}. The adaptation process involves customising the existing \textit{"template"} application to accommodate the CardioSync system architecture  - MAX30102 sensor and the Heart Rate peak detection algorithm.
 
 \subsubsection{Software Foundation and Customisation}
 
@@ -128,7 +128,7 @@ Before starting the sensor sampling, sensor should be initialised and configured
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.7\linewidth]{chapters/Implementation/dynamic_threshold.png}
-    \caption{Example measurement showing the dynamic and fluctuating nature of continuous sensor data readings from MAX30102.}
+    \caption{Example measurement showing the dynamic and fluctuating nature of continuous sensor data readings from MAX30102. The Y-axis represents the sensor's raw data in ADC count units. These units indicate the magnitude of the analog signal measured by the sensor and converted into digital form by the analog-to-digital converter (ADC).}
     \label{fig:dynamic_threshold}
 \end{figure}
 \noindent Initially, an attempt was made to utilise Maxim Integrated's reference heart rate peak detection algorithm \cite{SparkFun_MAX3010x_Sensor_Library} developed for their low power, optical heart-rate module - MAXREFDES117 \cite{2016maxrefdes117}. This algorithm employed a method of peak identification by calculating a fixed threshold and detecting peaks above that threshold. However, this approach proved ineffective for the CardioSync framework due to the dynamic and varying nature of the continuous sensor data readings obtained from the MAX30102. As shown in Figure~\ref{fig:dynamic_threshold}, the sensor data exhibited fluctuations that necessitated a more adaptive and dynamic threshold approach.
@@ -163,15 +163,15 @@ Before starting the sensor sampling, sensor should be initialised and configured
 \label{alg:heart_rate_algorithm}
 \begin{algorithmic}[1]
 \Function{calculate\_heart\_rate}{$a\_ir, callback$}
-    \item[] \Comment{{\scriptsize $a\_ir$ : array of sensor data from Sliding window buffer.}}
-    \item[] \Comment{{\scriptsize $callback$ : callback function to process the peaks detected by algorithm.}}
+    \item[] \Comment{{\scriptsize $a\_ir$: array of sensor data from Sliding window buffer.}}
+    \item[] \Comment{{\scriptsize $callback$: callback function to process the peaks detected by algorithm.}}
 \item[]
     
     \State Initialise  $a\_ir\_clean[ ]$, $a\_ir\_diff[ ]$, $peak\_indices[ ]$, and $valley\_indices[ ]$
-    \item[] \Comment{{\scriptsize $a\_ir\_clean[ ]$ : array of sensor data after DC component is removed}}
-    \item[] \Comment{{\scriptsize $a\_ir\_diff[ ]$ : array of first derivative of sensor data}}
-    \item[] \Comment{{\scriptsize $peak\_indices[ ]$ : array of detected peak indices in the sensor data}}
-    \item[] \Comment{{\scriptsize $valley\_indices[ ]$ : array of detected valley indices in the sensor data}}
+    \item[] \Comment{{\scriptsize $a\_ir\_clean[ ]$: array of sensor data after DC component is removed}}
+    \item[] \Comment{{\scriptsize $a\_ir\_diff[ ]$: array of first derivative of sensor data}}
+    \item[] \Comment{{\scriptsize $peak\_indices[ ]$: array of detected peak indices in the sensor data}}
+    \item[] \Comment{{\scriptsize $valley\_indices[ ]$: array of detected valley indices in the sensor data}}
 \item[]
 
     \State $\mu = \frac{1}{n}\sum_{i=1}^{n} a\_ir[i]$ \Comment{{\scriptsize Calculate mean of raw IR sensor data}}
@@ -291,4 +291,4 @@ With the successful identification of heart rate peaks, the post processing is r
 
 
 \subsubsection{Adaptive Heart Rate Update}
-In cases where the BLE connection setup experiences prolonged delays, the continuity of the \textit{Heart Rate Interval} may become compromised. In response, an adaptive iterative strategy is employed. A timer, \texttt{MAX30102RestartTimer}, restricts the "Sleep and Synchronise" phase to a 10-second duration. Upon the timer's expiration, \texttt{MAX30102Start()} is calle again, triggering the "Read and Synchronise phase" which updates \textit{Heart Rate Interval}. The iterative process between phases is stopped once a successful BLE connection is established. Additionally, when the connection is closed, \texttt{MAX30102Start()} is reinvoked to start "Read and Synchronise" phase. 
+In cases where the BLE connection setup experiences prolonged delays, the continuity of the \textit{Heart Rate Interval} may become compromised. In response, an adaptive iterative strategy is employed. A timer, \texttt{MAX30102RestartTimer}, restricts the "Sleep and Synchronise" phase to a 10-second duration. Upon the timer's expiration, \texttt{MAX30102Start()} is called again, triggering the "Read and Synchronise phase" which updates \textit{Heart Rate Interval}. The iterative process between phases is stopped once a successful BLE connection is established. Additionally, when the connection is closed, \texttt{MAX30102Start()} is reinvoked to start "Read and Synchronise" phase. 

@@ -28,7 +28,7 @@
 
 \section{MAX30102 Sensor Configuration}
 \label{sec:sensor_config}
-The initialisation of the MAX30102 sensor happens through nRF's TWI driver. It is noteworthy that the MAX30102 is assigned to \textit{TWI instance 1}, as \textit{TWI instance 0} is exclusively allocated for SPI communication with the external FRAM module in the FreeBie architecture. After successful enabling of TWI interface for the sensor, configuration of various registers of sensor is performed to ensure optimal performance while minimising power consumption. To achieve this, the \texttt{MAX30102\_init()} function is implemented. Within this function, several critical registers are configured as follows:
+The initialisation of the MAX30102 sensor happens through nRF's TWI driver. The nRF52840 board \cite{nRF52840} supports two devices interfaced through TWI interface for \(\text{I}^2\text{C}\) or SPI communication. The MAX30102 sensor is assigned to \textit{TWI instance 1} among the two TWI devices, as \textit{TWI instance 0} is exclusively allocated for SPI communication with the external FRAM module in the FreeBie architecture. After successful enabling of TWI interface for the sensor, configuration of various registers of sensor is performed to ensure optimal performance while minimising power consumption. To achieve this, the \texttt{MAX30102\_init()} function is implemented. Within this function, several critical registers are configured as follows:
 
 \begin{itemize}
     \item \textbf{REG\_INTR\_ENABLE\_1 (0x02U):} This register is set with the value 0xC0 to enable the "A\_FULL\_EN" interrupt, which triggers when the FIFO is full and data is ready for reading.
@@ -77,6 +77,6 @@ The CardioSync system was tested across various square wave periods with differe
 17 & 8 & 1 & 9  & 88.89\% & 11.388 \\ \hline
 18 & 8 & 2 & 10 & 80.00\% & 4.133  \\ \hline
 \end{tabular}
-\caption{Validation of CardioSync system across various square wave periods with different duty cycles. With turn OFF time more than 3 seconds and turn ON time less than 6 seconds, connection setup time increases drastically.}
+\caption{Validation of CardioSync system across various square wave periods with different duty cycles. With turn OFF time more than 3 seconds and turn ON time less than 6 seconds, connection setup time is longer than other parameters of square wave supply.}
 \label{tab:cardiosync_intermittent_exp}
 \end{table}
